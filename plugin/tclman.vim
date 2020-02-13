@@ -1,5 +1,11 @@
 " vim:ts=4:sw=4
 
+if exists("g:loaded_tclman")
+    finish
+else
+    let g:loaded_tclman= 1
+endif
+
 if !has("tcl")
 	finish
 endif
@@ -20,3 +26,13 @@ function s:tk_init()
 endfunc
 
 command Tk call <SID>tk_init()
+
+tclfile <sfile>:p:h:h/tcl/vimhttpd.tcl
+
+" execute "command VimHttpd tclfile" expand("<sfile>:p:h:h")."/tcl/vimhttpd.tcl"
+command VimHttpd tcl vimhttpd::start
+
+
+amenu <silent> Tclman.Http\ Server<Tab>:VimHttpd :tcl vimhttpd::start<CR>
+
+
